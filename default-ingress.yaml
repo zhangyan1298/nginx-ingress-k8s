@@ -1,0 +1,21 @@
+apiVersion: v1
+items:
+- apiVersion: extensions/v1beta1
+  kind: Ingress
+  metadata:
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.org/client-max-body-size: 100m
+    name: prod-ss
+    namespace: prod
+  spec:
+    rules:
+    - host: ingress.vicp.io
+      http:
+        paths:
+        - backend:
+            serviceName: gitlab-svc
+            servicePort: 3001
+          path: /
+  status:
+    loadBalancer: {}
